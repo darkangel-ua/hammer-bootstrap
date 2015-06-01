@@ -18,7 +18,7 @@ download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 
 download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 'boost.guid-1.40.0.tar.bz2' 'boost/guid'
 download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 'boost.crypto-1.40.0.tar.bz2' 'boost/crypto'
 download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 'boost.process-1.40.0.tar.bz2' 'boost/process'
-svn checkout -r 619 http://svn.code.sf.net/p/buildhammer/code/hammer
+svn checkout http://svn.code.sf.net/p/buildhammer/code/hammer
 
 if [ -d ./build ]; then
    rm -R ./build
@@ -26,4 +26,5 @@ fi
 
 mkdir build && cd build
 
-cmake ../ && make -j 4
+cmake .. && make -j 4
+cpack ..
