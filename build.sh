@@ -20,8 +20,10 @@ download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 
 download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 'boost.process-1.40.0.tar.bz2' 'boost/process'
 svn checkout -r 617 http://svn.code.sf.net/p/buildhammer/code/hammer
 
-rm -R ./build
-mkdir build
-cd build
+if [ -d ./build ]; then
+   rm -R ./build
+fi
+
+mkdir build && cd build
 
 cmake ../ && make -j 4
