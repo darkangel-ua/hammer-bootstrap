@@ -12,7 +12,7 @@ function download()
       mkdir $unpack_dest
    fi
 
-   wget -c "$url/$filename"
+   curl -L "$url/$filename" > $filename
    tar -xf "$filename" -C $unpack_dest
 }
 

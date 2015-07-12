@@ -4,8 +4,14 @@ file(GLOB system_src ./boost_1_58_0/libs/system/src/*.cpp)
 file(GLOB date_time_src ./boost_1_58_0/libs/date_time/src/gregorian/*.cpp)
 file(GLOB program_options_src ./boost_1_58_0/libs/program_options/src/*.cpp)
 file(GLOB filesystem_src ./boost_1_58_0/libs/filesystem/src/*.cpp)
+
 file(GLOB thread_src ./boost_1_58_0/libs/thread/src/*.cpp)
-file(GLOB thread_pthread_src ./boost_1_58_0/libs/thread/src/pthread/*.cpp)
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	file(GLOB thread_os_src ./boost_1_58_0/libs/thread/src/pthread/*.cpp)
+ELSE(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	file(GLOB thread_os_src ./boost_1_58_0/libs/thread/src/win32/*.cpp)
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+
 file(GLOB regex_src ./boost_1_58_0/libs/regex/src/*.cpp)
 file(GLOB iostreams_src ./boost_1_58_0/libs/iostreams/src/mapped_file.cpp)
 set(serialization_src
@@ -40,9 +46,13 @@ set(serialization_src
 #set(serialization_src ${serialization_tmp_sources})
 #file(GLOB iostreams_src ./boost_1_58_0/libs/iostreams/src/mapped_file.cpp)
 
-add_library(boost.all STATIC ${system_src} ${date_time_src} ${program_options_src} ${filesystem_src} ${thread_src} ${thread_pthread_src} ${regex_src} ${iostreams_src} ${serialization_src})
-target_compile_definitions(boost.all PRIVATE "BOOST_SYSTEM_STATIC_LINK=1 BOOST_DATE_TIME_STATIC_LINK BOOST_All_STATIC_LINK=1 BOOST_THREAD_BUILD_LIB=1")
+add_library(boost.all STATIC ${system_src} ${date_time_src} ${program_options_src} ${filesystem_src} ${thread_src} ${thread_os_src} ${regex_src} ${iostreams_src} ${serialization_src})
+target_compile_definitions(boost.all PUBLIC BOOST_SYSTEM_STATIC_LINK=1 BOOST_DATE_TIME_STATIC_LINK BOOST_All_STATIC_LINK=1 BOOST_THREAD_BUILD_LIB=1 BOOST_ALL_NO_LIB=1)
 target_include_directories(boost.all PUBLIC ./boost_1_58_0)
+
+IF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+	target_link_libraries(boost.all pthread)
+ENDIF(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 add_subdirectory(crypto)
 add_subdirectory(guid)
