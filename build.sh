@@ -23,7 +23,7 @@ download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 
 download 'https://dl.dropboxusercontent.com/u/13148925/hammmer-bootstrap-libs/' 'boost.sandbox.process-1.58.0.tar.bz2' 'boost/process/1.58.0'
 
 git clone https://github.com/darkangel-ua/hammer.git
-cd hammer && git reset --hard 67eb8d41730b810745d036f93f55729d48a42d0c && cd ..
+cd hammer && git reset --hard 33e52e17c9aec116fd5d361ae8953bffc963c376 && cd ..
 
 if [ -d ./build ]; then
    rm -R ./build
