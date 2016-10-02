@@ -1,0 +1,7 @@
+project root : requirements
+                 <cxxflags>"-std=c++11"
+                 <toolset>gcc:<cxxflags>"-Wno-deprecated-declarations"
+            ;
+
+setup-warehouse experiment : "https://dl.dropboxusercontent.com/u/13148925/packages" : ./packages ; 
+use-project /hammer : hammer ;
